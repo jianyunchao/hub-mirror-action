@@ -24,6 +24,8 @@ class Hub(object):
             self.dst_base = 'https://gitee.com/api/v5'
         elif self.dst_type == "github":
             self.dst_base = 'https://api.github.com'
+        else:
+            self.dst_base = 'https://' + dst
 
         prefix = "https://" if clone_style == 'https' else 'git@'
         suffix = "/" if clone_style == 'https' else ':'
@@ -39,6 +41,9 @@ class Hub(object):
         self.dst_repo_base = prefix + self.dst_account
 
     def has_dst_repo(self, repo_name):
+        if "api" not in str(self.dst_base):
+            response = self.session.get("/".join([self.dst_base, repo_name]))
+            return response.status_code == 200
         url = '/'.join(
             [
                 self.dst_base, self.dst_account_type+'s', self.dst_account,
