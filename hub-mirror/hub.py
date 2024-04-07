@@ -37,7 +37,7 @@ class Hub(object):
             self.src_repo_base = prefix + 'github.com' + suffix
         self.src_repo_base = self.src_repo_base + self.src_account
         # TODO: toekn push support
-        prefix = "git@" + self.dst_type
+        prefix = "git@" + self.dst_type + ":"
         self.dst_repo_base = prefix + self.dst_account
 
     def has_dst_repo(self, repo_name):
