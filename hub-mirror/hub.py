@@ -42,7 +42,7 @@ class Hub(object):
 
     def has_dst_repo(self, repo_name):
         if "api" not in str(self.dst_base):
-            response = self.session.get("/".join([self.dst_base, repo_name]))
+            response = self.session.get("/".join([self.dst_base, repo_name]), timeout=5)
             return response.status_code == 200
         url = '/'.join(
             [
