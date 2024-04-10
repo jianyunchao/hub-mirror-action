@@ -20,6 +20,9 @@ class Hub(object):
         self.dst_type, self.dst_account = dst.split('/')
         self.dst_token = dst_token
         self.session = requests.Session()
+        adapter = requests.adapters.HTTPAdapter(pool_connections=30, pool_maxsize=30) # 分别自定连接池的cache的数量和最大数量
+        self.session.mount("https://",adapter)
+        self.session.mount("http://",adapter）
         if self.dst_type == "gitee":
             self.dst_base = 'https://gitee.com/api/v5'
         elif self.dst_type == "github":
